@@ -1,0 +1,17 @@
+[project]
+name = "shop-list-bot"
+version = "0.1.0"
+description = "Telegram bot for shopping lists"
+authors = [{name = "Vl Nagibin", email = "vlnagibin@gmail.com"}]
+readme = "README.md"
+
+requires-python = ">=3.13"
+
+dependencies = [
+    "python-telegram-bot>=22.5",
+    "pydantic-settings>=2.6.1",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
