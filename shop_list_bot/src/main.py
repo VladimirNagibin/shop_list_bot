@@ -58,7 +58,7 @@ def run() -> None:
     except (RuntimeError, OSError, ValueError) as e:
         logger.exception(f"Fatal error: {e}")
         sys.exit(1)
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         # Оставляем как fallback для действительно неожиданных ошибок
         logger.exception(f"Unexpected fatal error: {e}")
         sys.exit(1)

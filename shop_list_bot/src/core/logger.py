@@ -2,7 +2,6 @@
 
 import logging
 import logging.config
-import os
 
 from pathlib import Path
 from typing import Any
@@ -24,10 +23,10 @@ def create_directory(path: str) -> None:
 
 # Constants for better readability
 LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-LOG_FILE_PATH = os.path.join(settings.BASE_DIR, "logs", "app.log")
+LOG_FILE_PATH = Path(settings.BASE_DIR) / "logs" / "app.log"
 
 # Ensure log directory exists
-create_directory(os.path.dirname(LOG_FILE_PATH))
+create_directory(str(LOG_FILE_PATH.parent))
 
 # Centralized logging configuration
 LOGGING_CONFIG: dict[str, Any] = {

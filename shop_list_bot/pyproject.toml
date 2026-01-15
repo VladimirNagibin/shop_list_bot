@@ -141,6 +141,14 @@ plugins = [
     "pydantic.mypy"
 ]
 
+[[tool.mypy.overrides]]
+module = "pydantic.*"
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = "pydantic_settings.*"
+plugins = ["pydantic.mypy"]
+
 # Включаем строгий режим постепенно
 [[tool.mypy.overrides]]
 module = [
@@ -223,3 +231,9 @@ install-dev = "uv sync --all-extras"
 
 # Очистка
 clean = "rm -rf .mypy_cache .pytest_cache .ruff_cache __pycache__ *.pyc"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.1",
+    "pydantic[myplugin]>=2.12.5",
+]
