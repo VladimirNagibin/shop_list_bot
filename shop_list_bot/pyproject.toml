@@ -8,6 +8,8 @@ requires-python = ">=3.13"
 dependencies = [
     "python-telegram-bot>=22.5",
     "pydantic-settings>=2.6.1",
+    "aiosqlite>=0.22.1",
+    "python-multipart>=0.0.21",
 ]
 
 [project.optional-dependencies]
