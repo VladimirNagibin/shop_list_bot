@@ -1,0 +1,5 @@
+services:
+  shop_list_bot:
+    build:
+      context: ./shop_list_bot
+      dockerfile: Dockerfile

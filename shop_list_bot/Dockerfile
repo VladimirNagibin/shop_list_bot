@@ -3,10 +3,11 @@ FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim AS builder
 WORKDIR /app
 
 # Копируем зависимости
-COPY pyproject.prod.toml uv.lock ./
+COPY pyproject.prod.toml pyproject.toml
+COPY uv.lock .
 
 # Устанавливаем зависимости
-RUN uv sync --project pyproject.prod.toml --frozen --no-cache
+RUN uv sync --frozen --no-cache
 
 # Create a minimal runtime image
 FROM python:3.13-slim-bookworm
@@ -38,4 +39,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD python -c "import sys; sys.exit(0)"
 
 # Запускаем бота
-CMD ["python", "-m", "src.main"]
+CMD ["python", "/app/src/main.py"]

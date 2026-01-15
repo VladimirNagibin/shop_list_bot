@@ -28,7 +28,7 @@ class Settings(BaseSettings):  # type: ignore[misc]
 
     # Bot token from @BotFather
     BOT_TOKEN: str = Field(
-        default="bot_token",
+        default="bot_token_here",
         min_length=10,
         description="Telegram bot token obtained from @BotFather",
     )
