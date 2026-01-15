@@ -209,3 +209,5 @@ __marimo__/
 .vscode
 
 logs
+
+.python-version
