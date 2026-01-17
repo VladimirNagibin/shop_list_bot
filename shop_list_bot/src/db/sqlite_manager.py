@@ -10,10 +10,9 @@ from typing import Any
 
 import aiosqlite
 
-from interfaces.databases.base import IDatabaseManager, ITransactionManager
-
 from core.logger import logger
 from core.settings import settings
+from interfaces.databases.base import IDatabaseManager, ITransactionManager
 
 
 class SQLiteTransactionManager(ITransactionManager):

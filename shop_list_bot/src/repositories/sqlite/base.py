@@ -7,10 +7,9 @@ from contextlib import suppress
 from typing import Any, TypeVar, cast
 from uuid import UUID, uuid4
 
+from core.logger import logger
 from db import AsyncDatabaseFactory, DatabaseType
 from interfaces.databases.base import IDatabaseManager, IRepository
-
-from core.logger import logger
 
 from .exeptions import InvalidFilterKeyError
 
@@ -23,7 +22,7 @@ UpdateSchema = TypeVar("UpdateSchema")
 class SQLiteBaseRepository(IRepository[T, CreateSchema, UpdateSchema]):
     """Base async SQLite repository implementation."""
 
-    def __init__(self, table_name: str, model_class: type[T]):
+    def __init__(self, table_name: str, model_class: type[T]) -> None:
         self.table_name = table_name
         self.model_class = model_class
         self._db_manager: IDatabaseManager | None = None
@@ -188,7 +187,9 @@ class SQLiteBaseRepository(IRepository[T, CreateSchema, UpdateSchema]):
         if not key.isidentifier():
             raise InvalidFilterKeyError(key)
 
-    async def update(self, record_id: UUID, data: UpdateSchema) -> T | None:
+    async def update(
+        self, record_id: UUID, data: UpdateSchema | CreateSchema
+    ) -> T | None:
         """Update a record asynchronously."""
         db_manager = await self._get_db_manager()
 

@@ -4,9 +4,8 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from typing import Any
 
-from interfaces.databases.base import IDatabaseManager
-
 from core.logger import logger
+from interfaces.databases.base import IDatabaseManager
 
 
 class PostgreSQLManager(IDatabaseManager):

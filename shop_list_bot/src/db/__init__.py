@@ -5,10 +5,9 @@ import asyncio
 from enum import Enum
 from typing import Any, ClassVar
 
-from interfaces.databases.base import IDatabaseManager
-
 from core.logger import logger
 from core.settings import settings
+from interfaces.databases.base import IDatabaseManager
 
 
 class DatabaseType(Enum):

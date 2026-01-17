@@ -101,7 +101,7 @@ ignore = [
 # line-length = 78  # Максимальная длина строки
 
 [tool.ruff.lint.isort]
-known-first-party = ["src", "core"]
+known-first-party = ["src", "core", "db", "interfaces", "repositories", "schemas", "services"]
 lines-after-imports = 2
 lines-between-types = 1
 
