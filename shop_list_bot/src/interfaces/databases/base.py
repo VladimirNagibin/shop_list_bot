@@ -1,7 +1,7 @@
 """Abstract base classes defining async repository interfaces."""
 
 from abc import ABC, abstractmethod
-from collections.abc import AsyncIterator
+from contextlib import AbstractAsyncContextManager
 from typing import Any, Protocol, TypeVar
 from uuid import UUID
 
@@ -14,35 +14,32 @@ UpdateSchema = TypeVar("UpdateSchema", contravariant=True)
 class IRepository(Protocol[T, CreateSchema, UpdateSchema]):
     """Abstract async base repository interface."""
 
-    @abstractmethod
     async def create(self, data: CreateSchema) -> T | None:
         """Create a new record asynchronously."""
 
-    @abstractmethod
     async def get_by_id(self, record_id: UUID) -> T | None:
         """Get record by ID asynchronously."""
 
-    @abstractmethod
     async def get_all(
         self, skip: int = 0, limit: int = 100, filters: dict[str, Any] | None = None
     ) -> list[T]:
         """Get all records with pagination and filtering asynchronously."""
+        ...
 
-    @abstractmethod
     async def update(self, record_id: UUID, data: UpdateSchema) -> T | None:
         """Update a record asynchronously."""
 
-    @abstractmethod
     async def delete(self, record_id: UUID) -> bool:
         """Delete a record asynchronously."""
+        ...
 
-    @abstractmethod
     async def count(self, filters: dict[str, Any] | None = None) -> int:
         """Count records with optional filtering asynchronously."""
+        ...
 
-    @abstractmethod
     async def exists(self, record_id: UUID) -> bool:
         """Check if record exists asynchronously."""
+        ...
 
 
 class ITransactionManager(ABC):
@@ -61,24 +58,29 @@ class ITransactionManager(ABC):
         """Rollback the current transaction asynchronously."""
 
     @abstractmethod
-    # @asynccontextmanager
-    async def transaction(self) -> AsyncIterator[Any]:
+    def transaction(self) -> AbstractAsyncContextManager[None]:
         """Async context manager for transactions."""
+        ...
 
 
 class IDatabaseManager(ABC):
     """Abstract async database manager interface."""
 
     @abstractmethod
-    # @asynccontextmanager
-    async def get_connection(self) -> AsyncIterator[Any]:
+    async def initialize(self) -> None:
+        """Initialize database and connection pool."""
+
+    @abstractmethod
+    def get_connection(self) -> AbstractAsyncContextManager[Any]:
         """Get database connection asynchronously."""
+        ...
 
     @abstractmethod
     async def execute_query(
         self, query: str, params: tuple[Any] | None = None
     ) -> list[Any]:
         """Execute raw SQL query asynchronously."""
+        ...
 
     @abstractmethod
     async def execute_many(self, query: str, params_list: list[Any]) -> None:
@@ -87,10 +89,12 @@ class IDatabaseManager(ABC):
     @abstractmethod
     async def backup(self, backup_path: str) -> bool:
         """Create database backup asynchronously."""
+        ...
 
     @abstractmethod
     async def health_check(self) -> bool:
         """Check database health asynchronously."""
+        ...
 
     @abstractmethod
     async def close(self) -> None:

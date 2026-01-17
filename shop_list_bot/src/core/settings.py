@@ -33,6 +33,18 @@ class Settings(BaseSettings):  # type: ignore[misc]
         description="Telegram bot token obtained from @BotFather",
     )
 
+    DB_SQLITE_PATH: str = Field(
+        default="shopping_cart.db",
+        min_length=1,
+        description="DB path for SQLite database",
+    )
+
+    POOL_SIZE: int = Field(
+        default=1,
+        gt=0,
+        description="Pool size for database connections",
+    )
+
     @field_validator("LOG_LEVEL")
     @classmethod
     def validate_log_level(cls, v: str) -> str:
