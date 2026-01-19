@@ -34,9 +34,9 @@ repos:
   #    - id: isort
   #      name: isort (python)
   #      args: [--profile=black,
-  #             --line-length=79,
-  #             --multi-line=3,     # Стиль переноса импортов
-  #             --trailing-comma,   # Добавлять запятую после последнего импорта
-  #             #--force-sort-within-sections=false,  # Сортировка внутри секций
-  #             --skip=__init__.py  # Игнорировать файлы
+  #            --line-length=79,
+  #            --multi-line=3,     # Стиль переноса импортов
+  #            --trailing-comma,   # Добавлять запятую после последнего импорта
+  #            # --force-sort-within-sections=false,  # Сортировка внутри секций
+  #            --skip=__init__.py  # Игнорировать файлы
   #      ]

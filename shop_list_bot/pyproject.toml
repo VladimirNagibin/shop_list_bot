@@ -95,13 +95,16 @@ ignore = [
     "SLF001",  # Private member access
     "PLR0913", # Too many arguments
     "PLR2004", # Magic value used in comparison
+    "RUF001",  # c
+    "RUF002",  # c
+    "RUF003",  # B
 ]
 
 # max-complexity = 10  # Максимальная сложность когнитивной нагрузки
 # line-length = 78  # Максимальная длина строки
 
 [tool.ruff.lint.isort]
-known-first-party = ["src", "core"]
+known-first-party = ["src", "core", "db", "interfaces", "repositories", "schemas", "services"]
 lines-after-imports = 2
 lines-between-types = 1
 
