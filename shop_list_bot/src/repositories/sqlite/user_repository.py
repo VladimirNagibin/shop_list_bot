@@ -8,7 +8,7 @@ from core.logger import logger
 from interfaces.databases.user_interface import IUserRepository
 from schemas.models import UserCreate, UserInDB, UserUpdate
 
-from .base import SQLiteBaseRepository
+from .base_sqlite import SQLiteBaseRepository
 
 
 class SQLiteUserRepository(

@@ -38,7 +38,7 @@ class AsyncDatabaseFactory:
                     if db_type == DatabaseType.SQLITE:
                         from .sqlite_manager import SQLiteManager
 
-                        conn_str = connection_string or settings.DB_SQLITE_PATH
+                        conn_str = connection_string or str(settings.DB_SQLITE_PATH)
                         manager: IDatabaseManager = SQLiteManager(conn_str, **kwargs)
 
                     elif db_type == DatabaseType.POSTGRESQL:

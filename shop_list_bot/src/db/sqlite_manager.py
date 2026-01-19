@@ -47,7 +47,7 @@ class SQLiteTransactionManager(ITransactionManager):
 class SQLiteManager(IDatabaseManager):
     """Async SQLite database manager."""
 
-    def __init__(self, db_path: str = settings.DB_SQLITE_PATH, **kwargs: Any):
+    def __init__(self, db_path: str = str(settings.DB_SQLITE_PATH), **kwargs: Any):
         self.db_path = db_path
         self.pool_size = kwargs.get("pool_size", settings.POOL_SIZE)
         self._connection_pool = None
@@ -60,9 +60,10 @@ class SQLiteManager(IDatabaseManager):
     async def get_connection(self) -> AsyncIterator[aiosqlite.Connection]:
         """Async context manager for database connections."""
         # Используем пул соединений для лучшей производительности
+        logger.info(f"Initializing SQLite database at {self.db_path}")
         conn = await aiosqlite.connect(
-            self.db_path,
-            detect_types=sqlite3.PARSE_DECLTYPES,
+            str(self.db_path),
+            # detect_types=sqlite3.PARSE_DECLTYPES,
         )
         conn.row_factory = aiosqlite.Row
 
@@ -73,6 +74,9 @@ class SQLiteManager(IDatabaseManager):
 
     async def _init_database(self) -> None:
         """Initialize database tables asynchronously."""
+        db_dir = Path(self.db_path).parent
+        db_dir.mkdir(parents=True, exist_ok=True)
+
         async with self.get_connection() as conn:
             await conn.execute("PRAGMA journal_mode=WAL")
             await conn.execute("PRAGMA foreign_keys=ON")

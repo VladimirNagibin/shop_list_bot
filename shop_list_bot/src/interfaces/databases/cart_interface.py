@@ -51,8 +51,8 @@ class ICartRepository(IRepository[CartInDB, CartCreate, CartUpdate], ABC):
     async def get_with_users_and_products(self, cart_id: UUID) -> CartInDB | None:
         """Get cart with users and products (full eager loading) asynchronously."""
 
-    @abstractmethod
-    async def add_users_to_cart(
-        self, cart_id: UUID, user_roles: list[tuple[UUID, str]]
-    ) -> int:
-        """Add multiple users to cart asynchronously."""
+    # @abstractmethod
+    # async def add_users_to_cart(
+    #    self, cart_id: UUID, user_roles: list[tuple[UUID, str]]
+    # ) -> int:
+    #    """Add multiple users to cart asynchronously."""

@@ -33,11 +33,15 @@ class Settings(BaseSettings):  # type: ignore[misc]
         description="Telegram bot token obtained from @BotFather",
     )
 
-    DB_SQLITE_PATH: str = Field(
-        default="shopping_cart.db",
+    DB_SQLITE_FILE: str = Field(
+        default="data/shopping_cart.db",
         min_length=1,
         description="DB path for SQLite database",
     )
+
+    @property
+    def DB_SQLITE_PATH(self) -> Path:
+        return Path(self.BASE_DIR) / self.DB_SQLITE_FILE
 
     POOL_SIZE: int = Field(
         default=1,

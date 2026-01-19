@@ -52,6 +52,15 @@ class SQLiteBaseRepository(IRepository[T, CreateSchema, UpdateSchema]):
 
         return self.model_class(**row)
 
+    def _row_to_db(self, row: dict[str, Any]) -> dict[str, Any]:
+        """Convert database row to model instance."""
+        for key, value in row.items():
+            if isinstance(value, UUID):
+                row[key] = str(value)
+            # if isinstance(value, datetime.datetime):
+            #    row[key] = value.isoformat()
+        return row
+
     async def create(self, data: CreateSchema) -> T | None:
         """Create a new record asynchronously."""
         db_manager = await self._get_db_manager()
@@ -83,6 +92,8 @@ class SQLiteBaseRepository(IRepository[T, CreateSchema, UpdateSchema]):
                         datetime.UTC
                     ).isoformat()
 
+                data_dict = self._row_to_db(data_dict)
+
                 valid_columns = self._get_valid_columns(data_dict)
 
                 values = [data_dict[col] for col in valid_columns]
@@ -93,8 +104,10 @@ class SQLiteBaseRepository(IRepository[T, CreateSchema, UpdateSchema]):
                 query = (
                     f"INSERT INTO {self.table_name} ({columns}) VALUES ({placeholders})"  # nosec # noqa: S608
                 )
+
                 await cursor.execute(query, values)
                 await conn.commit()
+
                 logger.debug(
                     f"Created record in {self.table_name} with id: {data_dict['id']}"
                 )

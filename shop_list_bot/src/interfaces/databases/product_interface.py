@@ -1,7 +1,6 @@
 """Async product repository interface."""
 
 from abc import ABC, abstractmethod
-from typing import Any
 from uuid import UUID
 
 from schemas.models import ProductCreate, ProductInDB, ProductUpdate
@@ -38,18 +37,18 @@ class IProductRepository(IRepository[ProductInDB, ProductCreate, ProductUpdate],
     async def batch_add_to_cart(self, product_ids: list[UUID], cart_id: UUID) -> int:
         """Add multiple products to cart at once asynchronously."""
 
-    @abstractmethod
-    async def get_popular_products(self, limit: int = 10) -> list[ProductInDB]:
-        """Get most frequently added products asynchronously."""
+    # @abstractmethod
+    # async def get_popular_products(self, limit: int = 10) -> list[ProductInDB]:
+    #     """Get most frequently added products asynchronously."""
 
-    @abstractmethod
-    async def get_products_with_filters(
-        self, filters: dict[str, Any], skip: int = 0, limit: int = 50
-    ) -> list[ProductInDB]:
-        """Get products with complex filters asynchronously."""
+    # @abstractmethod
+    # async def get_products_with_filters(
+    #     self, filters: dict[str, Any], skip: int = 0, limit: int = 50
+    # ) -> list[ProductInDB]:
+    #     """Get products with complex filters asynchronously."""
 
-    @abstractmethod
-    async def bulk_create(
-        self, products_data: list[ProductCreate]
-    ) -> list[ProductInDB]:
-        """Create multiple products asynchronously."""
+    # @abstractmethod
+    # async def bulk_create(
+    #    self, products_data: list[ProductCreate]
+    # ) -> list[ProductInDB]:
+    #    """Create multiple products asynchronously."""

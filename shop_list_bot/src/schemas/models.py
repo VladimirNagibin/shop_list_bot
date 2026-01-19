@@ -33,7 +33,7 @@ class UserUpdate(BaseModel):
 
     username: str | None = Field(None, min_length=3, max_length=50)
     first_name: str | None = Field(None, min_length=1, max_length=100)
-    updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    # updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
 
 
 class UserInDB(UserBase):

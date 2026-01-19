@@ -95,6 +95,9 @@ ignore = [
     "SLF001",  # Private member access
     "PLR0913", # Too many arguments
     "PLR2004", # Magic value used in comparison
+    "RUF001",  # c
+    "RUF002",  # c
+    "RUF003",  # B
 ]
 
 # max-complexity = 10  # Максимальная сложность когнитивной нагрузки
